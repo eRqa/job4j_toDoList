@@ -2,6 +2,7 @@ package ru.job4j.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "items")
@@ -33,6 +34,22 @@ public class Item {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id &&
+                done == item.done &&
+                Objects.equals(description, item.description) &&
+                Objects.equals(created, item.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, created, done);
     }
 
     public void setId(int id) {
