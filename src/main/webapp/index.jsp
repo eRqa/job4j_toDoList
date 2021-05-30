@@ -3,7 +3,6 @@
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
 <!doctype html>
 <html lang="en">
@@ -28,6 +27,7 @@
     <title>Список задач</title>
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 <%
     String id = request.getParameter("id");
     Item item = new Item(0, "", new Date(), false);
@@ -43,7 +43,7 @@
     function fillInTable() {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8080/toDoList/index.do",
+            url: "http://localhost:8080/job4j_toDoList/index.do",
             dataType: 'json',
             success: function (data) {
                 $("#idBodyItems").empty();
