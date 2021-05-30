@@ -3,6 +3,7 @@
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
 <!doctype html>
 <html lang="en">
@@ -35,24 +36,23 @@
     }
 %>
 <script>
-    $(document).ready(fillInTable());
+    $(document).ready(function () {
+        fillInTable()
+    });
 
     function fillInTable() {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8080/job4j_toDoList/index",
-            origin: "http://localhost:8080/job4j_toDoList",
+            url: "http://localhost:8080/toDoList/index.do",
             dataType: 'json',
-        }).done(function (data) {
-            $("#idBodyItems").empty();
-            for (let i = 0; i <= data.length; i++) {
-                addItemToTable(data[i]);
+            success: function (data) {
+                $("#idBodyItems").empty();
+                for (let i = 0; i <= data.length; i++) {
+                    addItemToTable(data[i]);
+                }
             }
-        }).fail(function (err) {
-            alert(err);
         });
     }
-
     function addItemToTable(data) {
         $('#idBodyItems').append(
             '<tr>\n'
