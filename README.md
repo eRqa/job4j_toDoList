@@ -11,4 +11,10 @@
     - Tomcat;
     - Git.
     
-    
+
+Главная страница:
+
+![Image alt](https://raw.githubusercontent.com/eRqa/job4j_toDoList/master/images/IndexPage.png)
+
+Главная страница с установленным отбором по только выполненным:
+![Image alt](https://raw.githubusercontent.com/eRqa/job4j_toDoList/master/images/IndexPageCompletedOnly.png)
