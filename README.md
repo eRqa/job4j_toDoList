@@ -1,5 +1,7 @@
 # job4j_toDoList
 
+[![Build Status](https://travis-ci.org/eRqa/job4j_toDoList.svg?branch=master)](https://travis-ci.org/eRqa/job4j_toDoList)
+
 Проект реализуют стереотипную задачу todo-листа
 
 Стек:
