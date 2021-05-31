@@ -53,15 +53,57 @@
             }
         });
     }
+
+    function fillInTableCompletedOnly() {
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/job4j_toDoList/index.do",
+            data: { completedOnly : $("#completedOnly").is(':checked') },
+            dataType: 'json',
+            success: function (data) {
+                $("#idBodyItems").empty();
+                for (let i = 0; i <= data.length; i++) {
+                    addItemToTable(data[i]);
+                }
+            }
+        });
+    }
+
     function addItemToTable(data) {
         $('#idBodyItems').append(
             '<tr>\n'
             + '<td>' + data.description + '</td>\n'
-            + '<td>' + data.done + '</td>\n'
+            + '<td>' + doneOrNot(data.done, data.id) + '</td>\n'
             + '</tr>\n"')
     }
 
+    function revertCompletedOnly() {
+        if ($("#completedOnly").is(':checked')) {
+            fillInTableCompletedOnly();
+        } else {
+            fillInTable();
+        }
+    }
+
+    function doneOrNot(done, id) {
+        if (done) {
+            return '<input type="checkbox" id="' + id + '" name="' + id + '" onchange="revertDone(id)" checked>'
+        } else {
+            return '<input type="checkbox" id="' + id + '" name="' + id + '" onchange="revertDone(id)">'
+        }
+    }
+
+    function revertDone(id) {
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:8080/job4j_toDoList/index.do",
+            data: { idToRevert : id },
+            dataType: 'json',
+        });
+    }
+
 </script>
+
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -72,7 +114,9 @@
                 <form action="<%=request.getContextPath()%>/index.do?id=<%=item.getId()%>" method="post">
                     <div class="form-group">
                         <label>Описание</label>
-                        <input type="text" class="form-control" name="name">
+                        <label>
+                            <input type="text" class="form-control" name="name">
+                        </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
@@ -90,22 +134,15 @@
             <div class="card-body">
                 <table class="table table-sm top-buffer">
                     <thead>
+                    <p><label for="completedOnly"></label>
+                        <input type="checkbox" id="completedOnly"
+                               onclick="revertCompletedOnly()">Только выполненные</p>
                     <tr>
                         <th scope="col">Описание</th>
                         <th scope="col">Выполнено</th>
                     </tr>
                     </thead>
                     <tbody id="idBodyItems">
-                    <%--                    <c:forEach items="${tasks}" var="task">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <td>--%>
-                    <%--                                <c:out value="${task.description}"/>--%>
-                    <%--                            </td>--%>
-                    <%--                            <td>--%>
-                    <%--                                <c:out value="${task.done}"/>--%>
-                    <%--                            </td>--%>
-                    <%--                        </tr>--%>
-                    <%--                    </c:forEach>--%>
                     </tbody>
                 </table>
             </div>

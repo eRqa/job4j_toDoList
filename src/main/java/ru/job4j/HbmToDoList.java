@@ -41,7 +41,7 @@ public class HbmToDoList implements Store {
         Session session = sf.openSession();
         session.beginTransaction();
         item.setDone(!item.isDone());
-        session.save(item);
+        session.update(item);
         session.getTransaction().commit();
         session.close();
         return item.isDone();
@@ -61,7 +61,7 @@ public class HbmToDoList implements Store {
     public List<Item> getCompleted() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List<Item> result = session.createQuery("from Item WHERE Item.done").list();
+        List<Item> result = session.createQuery("from Item WHERE done = true").list();
         session.getTransaction().commit();
         session.close();
         return result;
