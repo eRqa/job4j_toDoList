@@ -19,5 +19,7 @@
 
         <mapping class="ru.job4j.models.Item" />
         <mapping class="ru.job4j.models.User" />
+        <mapping class="ru.job4j.hibernateRelations.OneToMany.Brand" />
+        <mapping class="ru.job4j.hibernateRelations.OneToMany.Model" />
     </session-factory>
 </hibernate-configuration>

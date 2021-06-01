@@ -20,3 +20,14 @@ ALTER TABLE users
 
 ALTER TABLE users
     ADD password TEXT;
+
+CREATE TABLE BRANDS (
+                        ID SERIAL PRIMARY KEY,
+                        NAME TEXT
+);
+
+CREATE TABLE MODELS (
+                        ID SERIAL PRIMARY KEY,
+                        NAME TEXT
+);
+
