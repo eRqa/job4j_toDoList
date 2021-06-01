@@ -29,11 +29,24 @@ public class ManyToManyMain {
 //            session.persist(first);
 //            session.persist(second);
 //
+//            Author dostoevskiy = session.get(Author.class, 1);
+//            session.remove(dostoevskiy);
+//
 //            session.getTransaction().commit();
 //            session.close();
 
-            Author dostoevskiy = session.get(Author.class, 1);
-            session.remove(dostoevskiy);
+
+            Book someBook = Book.of("Some book");
+
+            Author someAuthor = Author.of("Some Author");
+            Author someAuthor2 = Author.of("Some Author2");
+            someAuthor.getBooks().add(someBook);
+            someAuthor2.getBooks().add(someBook);
+
+            session.persist(someAuthor);
+            session.persist(someAuthor2);
+
+            session.remove(someAuthor);
 
             session.getTransaction().commit();
             session.close();
