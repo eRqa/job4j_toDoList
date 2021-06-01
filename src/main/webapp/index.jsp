@@ -74,6 +74,7 @@
             '<tr>\n'
             + '<td>' + data.description + '</td>\n'
             + '<td>' + doneOrNot(data.done, data.id) + '</td>\n'
+            + '<td>' + data.author.name + '</td>\n'
             + '</tr>\n"')
     }
 
@@ -103,9 +104,21 @@
     }
 
 </script>
-
 <div class="container pt-3">
     <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <c:choose>
+                    <c:when test="${user.name!=null}">
+                        <a class="nav-link" href="<c:url value='/login.jsp'/>">
+                            <c:out value="${user.name}"/> | Выйти</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="nav-link" href="<c:url value='/login.jsp'/>">Войти</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+        </ul>
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Новая задача
@@ -114,9 +127,7 @@
                 <form action="<%=request.getContextPath()%>/index.do?id=<%=item.getId()%>" method="post">
                     <div class="form-group">
                         <label>Описание</label>
-                        <label>
-                            <input type="text" class="form-control" name="name">
-                        </label>
+                        <input type="text" class="form-control" name="descriptionNewTask">
                     </div>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
@@ -140,6 +151,7 @@
                     <tr>
                         <th scope="col">Описание</th>
                         <th scope="col">Выполнено</th>
+                        <th scope="col">Автор</th>
                     </tr>
                     </thead>
                     <tbody id="idBodyItems">

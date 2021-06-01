@@ -1,6 +1,7 @@
 package ru.job4j;
 
 import ru.job4j.models.Item;
+import ru.job4j.models.User;
 
 import java.util.List;
 
@@ -13,6 +14,10 @@ public interface Store {
     List<Item> getCompleted();
 
     Item findItemById(int id);
+
+    User findUserByEmail(String email);
+
+    User saveUser(User user);
 
     boolean revertDone(Item item);
 

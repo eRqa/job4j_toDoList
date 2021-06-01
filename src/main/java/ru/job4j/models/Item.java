@@ -22,6 +22,10 @@ public class Item {
     @Column(name = "done")
     private boolean done;
 
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
+
     public Item() {
     }
 
@@ -34,6 +38,14 @@ public class Item {
 
     public int getId() {
         return id;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override
