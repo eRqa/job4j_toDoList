@@ -21,5 +21,7 @@
         <mapping class="ru.job4j.models.User" />
         <mapping class="ru.job4j.hibernateRelations.OneToMany.Brand" />
         <mapping class="ru.job4j.hibernateRelations.OneToMany.Model" />
+        <mapping class="ru.job4j.hibernateRelations.ManyToMany.Author" />
+        <mapping class="ru.job4j.hibernateRelations.ManyToMany.Book" />
     </session-factory>
 </hibernate-configuration>
