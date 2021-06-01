@@ -34,8 +34,24 @@ public class OneToManyMain {
             Model jetta = Model.of("Jetta");
             session.save(jetta);
 
+            Model polo = Model.of("Polo");
+            session.save(polo);
+
+            Model passat = Model.of("Passat");
+            session.save(passat);
+
+            Model golf = Model.of("Golf");
+            session.save(golf);
+
+            Model arteon = Model.of("Arteon");
+            session.save(arteon);
+
             Brand vw = Brand.of("Volkswagen");
             vw.addModel(session.load(Model.class, jetta.getId()));
+            vw.addModel(session.load(Model.class, polo.getId()));
+            vw.addModel(session.load(Model.class, passat.getId()));
+            vw.addModel(session.load(Model.class, golf.getId()));
+            vw.addModel(session.load(Model.class, arteon.getId()));
 
             session.save(vw);
             //CASE 2 END
