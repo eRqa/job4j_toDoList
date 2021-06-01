@@ -97,7 +97,7 @@
     function revertDone(id) {
         $.ajax({
             type: 'POST',
-            url: "http://localhost:8080/job4j_toDoList/index.do",
+            url: "http://localhost:8080/job4j_toDoList/revert.do",
             data: { idToRevert : id },
             dataType: 'json',
         });
@@ -124,7 +124,7 @@
                 Новая задача
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/index.do?id=<%=item.getId()%>" method="post">
+                <form action="<%=request.getContextPath()%>/addItem.do?id=<%=item.getId()%>" method="post">
                     <div class="form-group">
                         <label>Описание</label>
                         <input type="text" class="form-control" name="descriptionNewTask">

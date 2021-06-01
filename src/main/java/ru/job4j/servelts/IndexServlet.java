@@ -10,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 
 public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         boolean completedOnly = Boolean.parseBoolean(req.getParameter("completedOnly"));
         List<Item> items;
         resp.setContentType("application/json");
@@ -30,24 +28,5 @@ public class IndexServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.print(new JSONArray(items).toString());
         writer.flush();
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String parameterIdToRevert = req.getParameter("idToRevert");
-        if (parameterIdToRevert != null) {
-            int idToRevert = Integer.parseInt(parameterIdToRevert);
-            Item foundedItem = HbmToDoList.instOf().findItemById(idToRevert);
-            HbmToDoList.instOf().revertDone(foundedItem);
-        } else {
-            HbmToDoList.instOf().add(
-                    new Item(
-                            Integer.parseInt(req.getParameter("id")),
-                            req.getParameter("name"),
-                            new Date(),
-                            false)
-            );
-            resp.sendRedirect(req.getContextPath() + "/");
-        }
     }
 }

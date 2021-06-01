@@ -42,4 +42,20 @@
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/reg.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>RevertServlet</servlet-name>
+    <servlet-class>ru.job4j.servelts.RevertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RevertServlet</servlet-name>
+    <url-pattern>/revert.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ItemAddServlet</servlet-name>
+    <servlet-class>ru.job4j.servelts.ItemAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemAddServlet</servlet-name>
+    <url-pattern>/addItem.do</url-pattern>
+  </servlet-mapping>
 </web-app>
