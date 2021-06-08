@@ -28,7 +28,7 @@ public class ItemAddServlet extends HttpServlet {
                 new Item(0,
                         req.getParameter("descriptionNewTask"),
                         (User) session.getAttribute("user"),
-                        new Date(),
+                        new Date(System.currentTimeMillis()),
                         false,
                         categories)
         );
