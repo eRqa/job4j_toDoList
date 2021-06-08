@@ -13,21 +13,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class IndexServlet extends HttpServlet {
-
+public class CategoriesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean completedOnly = Boolean.parseBoolean(req.getParameter("completedOnly"));
-        List<Item> items;
+        List<Category> categories;
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        if (completedOnly) {
-            items = HbmToDoList.instOf().getCompleted();
-        } else {
-            items = HbmToDoList.instOf().getAllTasks();
-        }
+        categories = HbmToDoList.instOf().getAllCategories();
         PrintWriter writer = resp.getWriter();
-        writer.print(new JSONArray(items).toString());
+        writer.print(new JSONArray(categories).toString());
         writer.flush();
     }
 }

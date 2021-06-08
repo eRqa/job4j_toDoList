@@ -28,16 +28,10 @@
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
-<%
-    String id = request.getParameter("id");
-    Item item = new Item(0, "", new Date(), false);
-    if (id != null) {
-        item = HbmToDoList.instOf().findItemById(Integer.parseInt(id));
-    }
-%>
 <script>
     $(document).ready(function () {
-        fillInTable()
+        fillInTable();
+        fillInTableCategories();
     });
 
     function fillInTable() {
@@ -49,6 +43,20 @@
                 $("#idBodyItems").empty();
                 for (let i = 0; i <= data.length; i++) {
                     addItemToTable(data[i]);
+                }
+            }
+        });
+    }
+
+    function fillInTableCategories() {
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/job4j_toDoList/categories.do",
+            dataType: 'json',
+            success: function (data) {
+                $("#cIds").empty();
+                for (let i = 0; i <= data.length; i++) {
+                    addCategoryToTable(data[i]);
                 }
             }
         });
@@ -70,12 +78,24 @@
     }
 
     function addItemToTable(data) {
-        $('#idBodyItems').append(
-            '<tr>\n'
-            + '<td>' + data.description + '</td>\n'
-            + '<td>' + doneOrNot(data.done, data.id) + '</td>\n'
-            + '<td>' + data.author.name + '</td>\n'
-            + '</tr>\n"')
+        let htmlText = '';
+        htmlText += '<tr>'
+            + '<td>' + data.description + '</td>'
+            + '<td>' + doneOrNot(data.done, data.id) + '</td>'
+            + '<td>' + data.author.name + '</td>';
+        htmlText += '<td>';
+        for (let i = 0; i < data['categories'].length; i++) {
+            htmlText += data['categories'][i]['name'] + ' ';
+        }
+        htmlText += '</td>';
+        htmlText += '</tr>';
+        $('#idBodyItems').append(htmlText);
+    }
+
+    function addCategoryToTable(data) {
+        $('#cIds').append(
+            '<option value=' + data.id + '>' + data.name + '</option>'
+        )
     }
 
     function revertCompletedOnly() {
@@ -103,6 +123,15 @@
         });
     }
 
+    function addTask() {
+        $.ajax({
+            method: 'POST',
+            url: "http://localhost:8080/job4j_toDoList/addItem.do",
+            data: {descriptionNewTask: $("#descriptionNewTask").val(), categoryIds: $('#cIds').val().join(",")},
+            dataType: 'json'
+        });
+        location.reload()
+    }
 </script>
 <div class="container pt-3">
     <div class="row">
@@ -124,12 +153,15 @@
                 Новая задача
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/addItem.do?id=<%=item.getId()%>" method="post">
+                <form>
                     <div class="form-group">
                         <label>Описание</label>
-                        <input type="text" class="form-control" name="descriptionNewTask">
+                        <input type="text" class="form-control" name="descriptionNewTask" id="descriptionNewTask">
+                        <label>Категории</label>
+                        <select class="form-control" name="cIds" id="cIds" multiple>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="submit" class="btn btn-primary" onclick="addTask()">Добавить</button>
                 </form>
             </div>
         </div>
@@ -152,6 +184,7 @@
                         <th scope="col">Описание</th>
                         <th scope="col">Выполнено</th>
                         <th scope="col">Автор</th>
+                        <th scope="col">Категории</th>
                     </tr>
                     </thead>
                     <tbody id="idBodyItems">

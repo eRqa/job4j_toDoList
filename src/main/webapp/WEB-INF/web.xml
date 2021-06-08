@@ -58,4 +58,12 @@
     <servlet-name>ItemAddServlet</servlet-name>
     <url-pattern>/addItem.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CategoriesServlet</servlet-name>
+    <servlet-class>ru.job4j.servelts.CategoriesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CategoriesServlet</servlet-name>
+    <url-pattern>/categories.do</url-pattern>
+  </servlet-mapping>
 </web-app>

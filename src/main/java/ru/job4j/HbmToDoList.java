@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.job4j.models.Category;
 import ru.job4j.models.Item;
 import ru.job4j.models.User;
 
@@ -54,14 +55,23 @@ public class HbmToDoList implements Store {
     @Override
     public List<Item> getAllTasks() {
         return tx(
-                session -> session.createQuery("from Item").list()
+                session -> session.createQuery("SELECT item from Item item " +
+                        "LEFT JOIN FETCH item.categories").list()
         );
     }
 
     @Override
     public List<Item> getCompleted() {
         return tx(
-                session -> session.createQuery("from Item WHERE done = true").list()
+                session -> session.createQuery("SELECT item from Item item " +
+                        "LEFT JOIN FETCH item.categories WHERE item.done = true").list()
+        );
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return tx(
+                session -> session.createQuery("from Category").list()
         );
     }
 
@@ -69,6 +79,17 @@ public class HbmToDoList implements Store {
     public Item findItemById(int id) {
         return tx(
                 session -> session.get(Item.class, id)
+        );
+    }
+
+    @Override
+    public List<Category> findCategoriesByIds(Integer[] ids) {
+        return tx(
+                session -> {
+                    var q = session.createQuery("FROM Category WHERE id IN (:ids)");
+                    q.setParameterList("ids", ids);
+                    return q.list();
+                }
         );
     }
 
@@ -111,6 +132,10 @@ public class HbmToDoList implements Store {
         } finally {
             session.close();
         }
+    }
+
+    public static void main(String[] args) {
+        List<Item> items = HbmToDoList.instOf().getAllTasks();
     }
 
 }

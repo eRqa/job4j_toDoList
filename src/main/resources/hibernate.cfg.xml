@@ -8,7 +8,7 @@
         <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/toDoList</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">password</property>
-        <property name="hibernate.connection.pool_size">1</property>
+        <property name="hibernate.connection.pool_size">2</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
@@ -19,6 +19,7 @@
 
         <mapping class="ru.job4j.models.Item" />
         <mapping class="ru.job4j.models.User" />
+        <mapping class="ru.job4j.models.Category" />
 <!--        <mapping class="ru.job4j.hibernateRelations.OneToMany.Brand" />-->
 <!--        <mapping class="ru.job4j.hibernateRelations.OneToMany.Model" />-->
         <mapping class="ru.job4j.hibernateRelations.lazyInitExceprion.Brand" />

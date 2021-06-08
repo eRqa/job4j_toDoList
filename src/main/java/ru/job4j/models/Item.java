@@ -1,7 +1,9 @@
 package ru.job4j.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,9 @@ public class Item {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Category> categories;
+
     public Item() {
     }
 
@@ -34,6 +39,31 @@ public class Item {
         this.description = description;
         this.created = created;
         this.done = done;
+    }
+
+    public Item(int id, String description, Date created, boolean done, List<Category> categories) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.categories = categories;
+    }
+
+    public Item(int id, String description, User author, Date created, boolean done, List<Category> categories) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.author = author;
+        this.categories = categories;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public int getId() {
@@ -46,22 +76,6 @@ public class Item {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return id == item.id &&
-                done == item.done &&
-                Objects.equals(description, item.description) &&
-                Objects.equals(created, item.created);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, created, done);
     }
 
     public void setId(int id) {
@@ -93,6 +107,22 @@ public class Item {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id &&
+                done == item.done &&
+                Objects.equals(description, item.description) &&
+                Objects.equals(created, item.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, created, done);
+    }
+
+    @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
@@ -101,6 +131,5 @@ public class Item {
                 ", done=" + done +
                 '}';
     }
-
 
 }
