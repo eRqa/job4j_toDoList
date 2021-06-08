@@ -133,9 +133,4 @@ public class HbmToDoList implements Store {
             session.close();
         }
     }
-
-    public static void main(String[] args) {
-        List<Item> items = HbmToDoList.instOf().getAllTasks();
-    }
-
 }
