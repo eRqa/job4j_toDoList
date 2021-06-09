@@ -23,6 +23,7 @@
         <mapping class="ru.job4j.models.Category" />
 <!--        <mapping class="ru.job4j.hibernateRelations.OneToMany.Brand" />-->
 <!--        <mapping class="ru.job4j.hibernateRelations.OneToMany.Model" />-->
+        <mapping class="ru.job4j.hibernateRelations.otherExamples.Candidate" />
         <mapping class="ru.job4j.hibernateRelations.lazyInitExceprion.Brand" />
         <mapping class="ru.job4j.hibernateRelations.lazyInitExceprion.Model" />
         <mapping class="ru.job4j.hibernateRelations.ManyToMany.Author" />
