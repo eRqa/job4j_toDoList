@@ -32,10 +32,10 @@ public class CandidatesMain {
 
             var q = session.createQuery("FROM Candidate WHERE id = :id", Candidate.class);
             q.setParameter("id", gena.getId());
-            List<Candidate> candidatesById = q.getResultList();
+            Candidate candidateById = q.uniqueResult();
 
             System.out.println("===== Candidate Gena by id =====");
-            candidatesById.forEach(System.out::println);
+            System.out.println(candidateById);
 
             q = session.createQuery("FROM Candidate WHERE name = :name", Candidate.class);
             q.setParameter("name", pavel.getName());
