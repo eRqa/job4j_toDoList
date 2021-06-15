@@ -55,7 +55,7 @@ public class HbmToDoList implements Store {
     @Override
     public List<Item> getAllTasks() {
         return tx(
-                session -> session.createQuery("SELECT item from Item item " +
+                session -> session.createQuery("SELECT DISTINCT item from Item item " +
                         "LEFT JOIN FETCH item.categories").list()
         );
     }
