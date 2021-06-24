@@ -127,7 +127,7 @@
         $.ajax({
             method: 'POST',
             url: "http://localhost:8080/job4j_toDoList/addItem.do",
-            data: {descriptionNewTask: $("#descriptionNewTask").val(), categoryIds: $('#cIds').val().join(",")},
+            data: {descriptionNewTask: $("#descriptionNewTask").val(), categoryIds: $('#cIds').val()},
             dataType: 'json'
         });
         location.reload()

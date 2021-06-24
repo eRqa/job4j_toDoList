@@ -18,7 +18,7 @@ public class ItemAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //toDo - Разобраться. Возможно, конструкицю преобразования String в Integer можно упростить
-        String[] stringCategoryIds = req.getParameter("categoryIds").split(",");
+        String[] stringCategoryIds = req.getParameterValues("categoryIds[]");
         int[] intCategoryIds = Arrays.stream(stringCategoryIds).mapToInt(Integer::parseInt).toArray();
         Integer[] categoryIds = IntStream.of(intCategoryIds).boxed().toArray(Integer []::new);
 
