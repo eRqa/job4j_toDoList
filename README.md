@@ -6,7 +6,6 @@
 
 Стек:
 
-    - Java 14;
     - PostgreSQL
     - Hibernate;
     - Maven;
